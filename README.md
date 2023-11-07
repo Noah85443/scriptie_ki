@@ -1,4 +1,4 @@
-# Explore the Future of Medical Imaging: Ultrasound and Photoacoustic Image Fusion
+# Segmentation and 3D reconstruction of a human breast tissue atlas using deep learning
 In this reposetory is my bachelor thesis for artificial intelligence.
 
 Stardist: an importable library which has pretrained models to detect cells using star shape polygons. You can also train it yourself.
