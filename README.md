@@ -40,6 +40,10 @@ Articles of interest:
   - Coarse alignment: start with a rotation and translation matrix for intial shift
     - After that minimize the function J = D + S where D is the NGF distance term and S an regulizer which controols smoothness of deformation
     - Regulizer: $S = \frac{\alpha}{2} \int_{\Omega} \mu <\nabla y, \nabla y> + (\lambda + \mu) (\nabla \cdot y)^2$
+    - Use MALDI spots for further orientation
+   
+- Optimization and enhancement of H&E stained microscopical images by applying bilinear interpolation method on lab color mode
+  - Enhancing the quality of imaging in order to beter detect using bilinear interpolation 
 
 FAIR: flexible algorithms for image registration:
 - TODO: READ
@@ -47,5 +51,6 @@ FAIR: flexible algorithms for image registration:
 Possible stacking images for ai:
 - Use ai to recognize crucial points on which it can be stacked (if distance between images is not to big)
 - Use SIFT and transformation matrix to calculate transformations and possibly wrapping of imaging (same concern here)
+- Edge detection and 
 
-https://www.grammarly.com/)https://www.grammarly.com/
+https://www.grammarly.com/
