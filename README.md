@@ -15,10 +15,10 @@ Articles of interest:
 - CODA: quantitative 3D reconstruction of large tissues at cellular resolution: 3D reconstruction of pancreas
   - Coarse alignment: using rigid-body registration where translation and rotation matrix are found by Radon transform with cross correlation
     - Possible different method: Log polar transform (Features based image registration using cross correlation and Radon transform)
-    - Elaboration:
-      - Create multi point grid over target and origin image
-      - Create cost function for overlay with warped image
-      - Optimze the cost function using gradient descent, Gauss-Newton or Levenberg-Marquardt (keep regularization in mind)
+  - Area specific alignment:
+    - Create multi point grid over target and origin image
+    - Create cost function for overlay with warped image
+    - Optimze the cost function using gradient descent, Gauss-Newton or Levenberg-Marquardt (keep regularization in mind)
   - Cell detection based on nuclear coordinates
     - The use of the pretrained ResNet50 (we can do our own network or stardist
   - Create 3D images based on coordinates
@@ -33,7 +33,7 @@ Articles of interest:
   - Introduction of Stardist which has pre trained models and is better preforming than U-net and R-cnn
   
 - 3D reconstruction of multiple stained histology images: 3D image based on H&E images (stacking the different images
-  - 3 proposed methods: stack the different stacks seperately and add them, start with one image and keep stacking on this and do it pair wise
+  - 3 proposed methods: stack the different stacks separately and merge them, start with one image and keep stacking on this and do it pair wise
   - The second strategy has the best result
   
 - Integration of 3D multimodal imaging data of a head and neck cancer and advanced feature recognition: 3D image based on H&E images
