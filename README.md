@@ -37,7 +37,9 @@ Articles of interest:
   - The second strategy has the best result
   
 - Integration of 3D multimodal imaging data of a head and neck cancer and advanced feature recognition: 3D image based on H&E images
-  - Coarse alignment:  
+  - Coarse alignment: start with a rotation and translation matrix for intial shift
+    - After that minimize the function J = D + S where D is the NGF distance term and S an regulizer which controols smoothness of deformation
+    - S = \alpha 
 
 FAIR: flexible algorithms for image registration:
 - TODO: READ
