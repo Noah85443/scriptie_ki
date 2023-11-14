@@ -7,4 +7,4 @@ title('Sine Wave')
 xlabel('x-axis')
 ylabel('y-axis')
 
-grid on
+grid on`
