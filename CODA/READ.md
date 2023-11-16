@@ -55,10 +55,8 @@ Input:
 - pth == path to image
 - nm == name of image
 - tp == type of image
-- rdo == flag for redoing the image reading (default = 0 -> no redo)
-
-Output:
-
+- rdo == flag for redoing the image reading (default = 0 -> no redo) <br>
+Output:<br>
 - im == image read
 - TA == tissue area
 
