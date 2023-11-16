@@ -1,0 +1,199 @@
+{
+  "version": "0.4.4",
+  "createTimestamp": 1700129994513,
+  "modifyTimestamp": 1700129994513,
+  "uri": "file:/Users/noah/Documents/MATLAB/project.qpproj",
+  "lastID": 2,
+  "images": [
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/Users/noah/Downloads/H21-066.1_HE331_0005_Scan1.qptiff",
+        "args": [
+          "--series",
+          "0"
+        ],
+        "metadata": {
+          "name": "H21-066.1_HE331_0005_Scan1.qptiff - resolution #1",
+          "width": 69120,
+          "height": 87840,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 69120,
+              "height": 87840
+            },
+            {
+              "downsample": 2.0,
+              "width": 34560,
+              "height": 43920
+            },
+            {
+              "downsample": 4.0,
+              "width": 17280,
+              "height": 21960
+            },
+            {
+              "downsample": 8.0,
+              "width": 8640,
+              "height": 10980
+            },
+            {
+              "downsample": 16.0,
+              "width": 4320,
+              "height": 5490
+            },
+            {
+              "downsample": 32.0,
+              "width": 2160,
+              "height": 2745
+            },
+            {
+              "downsample": 64.0,
+              "width": 1080,
+              "height": 1372
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 0.24951528763620073,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 0.24951528763620073,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "magnification": 20.0,
+          "preferredTileWidth": 512,
+          "preferredTileHeight": 512
+        }
+      },
+      "entryID": 1,
+      "randomizedName": "056d9b14-ab3c-4922-9050-16791d59865d",
+      "imageName": "H21-066.1_HE331_0005_Scan1.qptiff - resolution #1",
+      "metadata": {}
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/Users/noah/Downloads/H21-066.1_HE331_0009_Scan1.qptiff",
+        "args": [
+          "--series",
+          "0"
+        ],
+        "metadata": {
+          "name": "H21-066.1_HE331_0009_Scan1.qptiff - resolution #1",
+          "width": 76800,
+          "height": 109440,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 76800,
+              "height": 109440
+            },
+            {
+              "downsample": 2.0,
+              "width": 38400,
+              "height": 54720
+            },
+            {
+              "downsample": 4.0,
+              "width": 19200,
+              "height": 27360
+            },
+            {
+              "downsample": 8.0,
+              "width": 9600,
+              "height": 13680
+            },
+            {
+              "downsample": 16.0,
+              "width": 4800,
+              "height": 6840
+            },
+            {
+              "downsample": 32.0,
+              "width": 2400,
+              "height": 3420
+            },
+            {
+              "downsample": 64.0,
+              "width": 1200,
+              "height": 1710
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 0.24951528763620073,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 0.24951528763620073,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "magnification": 20.0,
+          "preferredTileWidth": 512,
+          "preferredTileHeight": 512
+        }
+      },
+      "entryID": 2,
+      "randomizedName": "2a94e853-adf6-4a06-8d26-0108396f3cc9",
+      "imageName": "H21-066.1_HE331_0009_Scan1.qptiff - resolution #1",
+      "metadata": {}
+    }
+  ]
+}
