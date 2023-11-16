@@ -28,8 +28,9 @@ register_images:
     - fill_vals
 
 ### function register_images(pth,IHC,E,zc,szz,sk,tpout,regE)
-
-- pth == path to images
+TODO: explanation
+Input:
+- pth == path to all images (default = tif files)
 - IHC == value of this determines the factor of reduce in calculate_global_reg and padding in preprocessing (default = 0)
   - IHC = empty||0||2||5 -> reduce = 6
   - IHC = 1 -> reduce = 4
@@ -37,7 +38,32 @@ register_images:
   - IHC = empty||0||1||10 -> padding = mode
   - IHC = 2 -> padding = gray
   - IHC = 5 -> padding = black
-- E: (default = 1)
+- E == flag whether elastic registration is used (default = 1 -> elestic registration)
+- zc == center image of the stack (default = ceil(len(imlist)/2))
+- szz == max size of the images (default = found by loop)
+- sk == skip value for selecting images along the z-axis (default = 1)
+- tpout == type of output image (default = 'tif')
+- regE == settings for elastic registration: size of registration tiles, buffer size, distance between tiles (default: 201, 100, 155)
+
+### function [im,TA]=get_ims(pth,nm,tp,rdo)
+Creates a 'pth\TA' directory and places tissue area in there (if it does not exist)
+Input:
+- pth == path to image
+- nm == name of image
+- tp == type of image
+- rdo == flag for redoing the image reading (default = 0 -> no redo)
+Output:
+- im == image read
+- TA == tissue area
+
+### function [TA,fillval]=find_tissue_area(im0,nm)
+Finds the tissue area based on subtracting a fill value from the image, applying filtering based on mean absolute differences, removing small and low-variation regions, and employing morphological operations to enhance and connect the identified tissue regions, ultimately yielding a binary tissue mask (finished with refining like black line removal)
+Input:
+- im0 == input image
+- nm == name of image (default = '')
+Output:
+- TA == tissue area (binary mask over entire image)
+- fillval == vector with color of background/non tissue 
 
 ### function [imout,tform,cent,f,Rout]=calculate_global_reg(imrf,immv,rf,iternum,IHC,bb)
 
@@ -66,10 +92,4 @@ Preprocessing of image with padding, converting to gray image and adding gausfil
 - szz == max size of images in stack
 - padall
 
-### function [im,TA]=get_ims(pth,nm,tp,rdo)
 
-Retrieves image and TA (tissue area of image) based on path
-
--
-
-### function [TA,fillval]=find_tissue_area(im0,nm)
