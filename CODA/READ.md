@@ -5,7 +5,6 @@
 ### Global setup of functions
 
 register_images:
-
 - get_ims
   - find_tissue_area
 - preprocessing
@@ -31,7 +30,6 @@ register_images:
 TODO: explanation.
 
 Input:
-
 - pth == path to all images (default = tif files)
 - IHC == value of this determines the factor of reduce in calculate_global_reg and padding in preprocessing (default = 0)
   - IHC = empty||0||2||5 -> reduce = 6
@@ -51,14 +49,12 @@ Input:
 Creates a 'pth\TA' directory and places tissue area in there (if it does not exist).
 
 Input:
-
 - pth == path to image
 - nm == name of image
 - tp == type of image
 - rdo == flag for redoing the image reading (default = 0 -> no redo)
 
 Output:
-
 - im == image read
 - TA == tissue area
 
@@ -66,12 +62,10 @@ Output:
 Finds the tissue area based on subtracting a fill value from the image, applying filtering based on mean absolute differences, removing small and low-variation regions, and employing morphological operations to enhance and connect the identified tissue regions, ultimately yielding a binary tissue mask (finished with refining like black line removal).
 
 Input:
-
 - im0 == input image
 - nm == name of image (default = '')
 
 Output:
-
 - TA == tissue area (binary mask over entire image)
 - fillval == vector with color of background/non tissue
 
@@ -79,7 +73,6 @@ Output:
 Preprocessing of image with padding, converting to gray image and adding gausfilter with sigma of 2. Image stays intact if IHC = 2||5, otherwise all the non-tissue will be white.
 
 Input:
-
 - im == image
 - TA == tissue area (see find_tissue_area)
 - szz == max size of images in stack (see register_images)
@@ -87,7 +80,6 @@ Input:
 - IHC == special value (see register_images)
 
 Output:
-
 - im == image in gray after preprocess steps
 - impg == gray image after processing
 - TA = tissue area (see find_tissue_area)
@@ -97,34 +89,47 @@ Output:
 Adds the padding in the correct size of max size of image.
 
 Input:
-
 - im == image
 - sz == szz (see register_images)
 - ext == padall (see preprocessing)
 - fillval == background vector (see find_tissue_area)
 
 Output:
-
 - im == image with padding
 
 ### function [imout,tform,cent,f,Rout]=calculate_global_reg(imrf,immv,rf,iternum,IHC,bb)
 This function calculates the global translation and rotation of the moving image based on reference image. 
 
 Input:
-
 - imrf == reference image
 - immv == moving image
-- rf == reduce images by \_ times
+- rf == reduces images by \_ times
 - iternum == number of iterations of registration code (set on 5 in register_images)
-- bb == registration quality (default = 0.9)
+- bb == threshold for registration quality (default = 0.9)
 
 Output:
-
 - imout == output image after rotation and translation of immv
 - tform == transformation matrix
 - cent == centrum of transformation
 - f == flag indicating if flip is performed (1 -> flipped)
 - Rout == registration quality based on common pixels
+
+### function [R,rs,xy,amv]=group_of_reg(amv0,arf,iternum0,sz,rf,bb)
+TODO
+
+Input:
+- amv0 == resized immv wit 1/rf and gausfilter with std of 2 (see calculate_global_reg)
+- arf == resized imrf wit 1/rf and gausfilter with std of 2 (see calculate_global_reg)
+- iternum0 == number of iterations in reg_ims_com (set on 2 in calculate_global_reg)
+- sz == size (set on [0,0] in calculate_global_reg)
+- rf == reduce factor (see calculate_global_reg)
+- bb == threshold for registration quality (default = 0.9)
+
+Output:
+- R == registration quality
+- rs == rotation 
+- xy == translation
+- amv == registered immv
 
 ### function [tform,amv,rsft,xyt,RR]=reg_ims_com(amv0,arf,count,sz,rf,deg0,xy0,r,th)
 TODO
@@ -141,22 +146,25 @@ Input:
 - th ==
 
 Output:
+
 - tform ==
 - amv ==
 - rsft ==
 - xyt==
 - RR ==
-- 
+
 ### function res=calculate_transform(im,imnxt,xy,p)
 TODO
 
 Input:
+
 - im ==
 - imnxt ==
 - xy ==
 - p ==
 
 Output: 
+
 -res ==
 
 ### function msk=mskcircle2_rect(sz,da)
