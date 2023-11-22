@@ -98,7 +98,7 @@ Output:
 - im == image with padding
 
 ### function [imout,tform,cent,f,Rout]=calculate_global_reg(imrf,immv,rf,iternum,IHC,bb)
-This function calculates the global translation and rotation of the moving image based on reference image. 
+Calculates the global translation and rotation of the moving image based on reference image. 
 
 Input:
 - imrf == reference image
@@ -115,7 +115,7 @@ Output:
 - Rout == registration quality based on common pixels
 
 ### function [R,rs,xy,amv]=group_of_reg(amv0,arf,iternum0,sz,rf,bb)
-TODO
+First preprocesses the images with binary masks, converting to double precision and normalizing. Then uses reg_ims_com to find the transformation
 
 Input:
 - amv0 == resized immv wit 1/rf and gausfilter with std of 2 (see calculate_global_reg)
@@ -132,65 +132,84 @@ Output:
 - amv == registered immv
 
 ### function [tform,amv,rsft,xyt,RR]=reg_ims_com(amv0,arf,count,sz,rf,deg0,xy0,r,th)
-TODO
+Performs global registration by finding the center, using radon transforms and itterating to optimize paramters. This function calculates the preciese transformation matrix.
 
 Input:
-- amv0 ==
-- arf ==
-- count ==
-- sz ==
-- rf ==
-- deg0 ==
-- xy0 ==
-- r ==
-- th ==
+- amv0 == moving image (see group_of_reg)
+- arf == reference frame (see group_of_reg)
+- count == number of iteratations for global registration (set to 3)
+- sz == maximum size of image (see register_images)
+- rf == reduce factor (see calculate_global_reg)
+- deg0 == initial rotation of image
+- xy0 == initial translation of image
+- r == flag for center of mass-based translation
+- th == custom theta values for radon transformation (optional)
 
 Output:
 
-- tform ==
-- amv ==
-- rsft ==
-- xyt==
-- RR ==
+- tform == transformation matrix
+- amv == transformed moving image
+- rsft == total rotation angle
+- xyt == total translation vector
+- RR == cross correlation
 
 ### function res=calculate_transform(im,imnxt,xy,p)
-TODO
+estimate the dislocation of images between frames using particle image velocimetry.
 
 Input:
 
-- im ==
-- imnxt ==
-- xy ==
-- p ==
+- im == reference image
+- imnxt == moving image
+- xy == optional initial center coordinates
+- p == paramters
 
 Output: 
 
--res ==
+-res == displacement vector
 
 ### function msk=mskcircle2_rect(sz,da)
-TODO
+generate the circle mask based on size of input matrix
 
 Input:
-- sz ==
-- da ==
+- sz == size of image
+- da == diameter
 
 Output:
-- msk == 
+- msk == mask over the image
 
 ### function imG=register_global_im(im,tform,cent,f,fillval)
-TODO: 
+Excecutes the needed tranformation
 
 Input:
 
 - im == image
-- tform == 
-- cent == 
-- f ==
-- fillval == 
+- tform == transformation matrix
+- cent == centre over which rotation should be
+- f == flag wether image is flipped
+- fillval == vector with color which is used for filling holes
 
 Output:
 
-- imG ==
+- imG == new transformed image
+
+
+### function [D,xgg,ygg,xx,yy]=calculate_elastic_registrationC(imrfR,immvR,TArf,TAmv,sz,bf,di,cutoff)
+
+Input:
+
+- imrfR == 
+- immvR == 
+- TArf == 
+- TAmv == 
+- sz ==
+- bf ==
+- di ==
+- cutoff == 
+
+Output:
+
+- imG == new transformed image
+
 
 TODO:
 
