@@ -51,7 +51,7 @@ function [tform,amv,rsft,xyt,RR]=reg_ims_com(amv0,arf,count,sz,rf,deg0,xy0,r,th)
         % use radon for rotational registration
         R0 = radon(arf, theta);
         Rn = radon(amv, theta);
-        R0=bpassW(R0,1,3);
+        R0=bpassW(R0,1,3); % bandpass filter with windowing
         Rn=bpassW(Rn,1,3);
 
         try rsf1=calculate_transform(R0,Rn);catch;rsf1=0;end
