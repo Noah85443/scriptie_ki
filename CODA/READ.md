@@ -178,7 +178,7 @@ Output:
 - msk == mask over the image
 
 ### function imG=register_global_im(im,tform,cent,f,fillval)
-Excecutes the needed tranformation
+Excecutes the needed tranformation TODO:
 
 Input:
 
@@ -194,31 +194,78 @@ Output:
 
 
 ### function [D,xgg,ygg,xx,yy]=calculate_elastic_registrationC(imrfR,immvR,TArf,TAmv,sz,bf,di,cutoff)
+Calculates the local displacement by slicing the image into different tiles and warps them.
 
 Input:
 
-- imrfR == 
-- immvR == 
-- TArf == 
-- TAmv == 
-- sz ==
-- bf ==
-- di ==
-- cutoff == 
+- imrfR == reference image
+- immvR == moving image
+- TArf == tissue area reference image
+- TAmv == tissue area moving image
+- sz == registration tiles size (element of regE in register_images which is set at 201)
+- bf == size of buiffer on registration tiles (element of regE in register_images which is set at 100)
+- di == distance between tiles (element of regE in register_images which is set at 155)
+- cutoff == threshold for tissue percentage (set at 0.15)
 
 Output:
 
-- imG == new transformed image
+- D == displacement map
+- xgg ==
+- ygg ==
+- xx ==
+- yy == 
+
+### function ind=getImLocalWindowInd_rf(xy,imsz,wndra,skipstep)
+Generating indices matrices representing local windows around centroid locations in an image.
+
+Input:
+
+- xy == n by 2 vectors of centroid location
+- imsz == 1 by 2 vector of image size 
+- wndra == local window size
+- skipstep == scalar of vector indicating the stepsize for sampling points within the local window
+
+Output:
+
+- ind == n by wndra*2+1 indices matrices where each row represent the local windows
+
+### function [X,Y,imout,RR]=reg_ims_ELS(amv0,arf0,rf,v)
+performing elastic registration on small tiles of immvR to imrfR by calculating the displacement between the tiles. The key steps include image resizing, transformation calculation, and storing displacement values in grids.
+
+Input:
+
+- amv0 == moving image
+- arf0 == reference image
+- rf == resize factor
+- v == flag indicating if the transformation of tile should be calculated (set to 0)
+
+Output:
+
+- X == displacement in the x direction
+- Y == displacement in the y direction
+- imout == transformed tile (optional output based on v)
+- RR == cross correlation of transformed tile (optional output based on v)
+
+### function [D,xgg,ygg,x,y]=make_final_grids(xgg0,ygg0,bf,x,y,szim)
+Creates displacement map that is smooth and continuous, addressing issues such as large translations and missing values.
+
+Input:
+
+- xgg0 == initial displacement along x-axis
+- ygg0 == initial displacement along y-axis
+- bf == buffer size around the image (see register_images)
+- x == point on image along x-axis that xgg0 is centered at
+- y == point on image along y-axis that ygg0 is centered at
+- szim == size of image
+
+Output:
+
+- D == final displacement map
+- xgg == processed displacement grid along the x-axis.
+- ygg == processed displacement grid along the y-axis.
+- x == point on image along x-axis that xgg is centered at
+- y == point on image along y-axis that ygg is centered at
 
 
-TODO:
-
-- calculate_elastic_registrationC
-- getImLocalWindowInd_rf
-- reg_ims_ELS
-- make_final_grids
-- fill_vals
-
-
-
-
+### function [xgg,ygg,dxgg,dygg,denom,sxgg,sygg]=fill_vals(xgg,ygg,cc,xystd)
+Fills in non-continuous values in the displacement map (x and y) with the mean of their neighbors.
