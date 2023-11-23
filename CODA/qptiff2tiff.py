@@ -75,40 +75,48 @@ def tiff_out(args, name, pages, color):
             map = build_map(pages, color)
             for page in tqdm(pages[0 : args.levels]):
                 if "tile_length" in page[1].keys():
-                    tif.save(
+                    tif.write(
                         page[0],
                         tile=(page[1]["tile_length"], page[1]["tile_length"]),
                         colormap=map,
-                        compress="lzma" if args.compression == 10 else args.compression,
-                        # 						 description=page[1]['image_description'],
+                        compression="zlib",
+                        # if args.compression == 10
+                        # else args.compression,
+                        # # 						 description=page[1]['image_description'],
                         resolution=(page[1]["XResolution"], page[1]["YResolution"]),
                     )
                 else:
-                    tif.save(
+                    tif.write(
                         page[0],
                         # 						 tile=(256,256),
                         colormap=map,
-                        compress="lzma" if args.compression == 10 else args.compression,
-                        # 						 description=page[1]['image_description'],
+                        compression="zlib",
+                        # if args.compression == 10
+                        # else args.compression,
+                        # # 						 description=page[1]['image_description'],
                         resolution=(page[1]["XResolution"], page[1]["YResolution"]),
                     )
         else:
             for page in tqdm(pages[0 : args.levels]):
                 pageRGB = convert2rgb(page, color)
                 if "tile_length" in page[1].keys():
-                    tif.save(
+                    tif.write(
                         pageRGB,
                         tile=(page[1]["tile_length"], page[1]["tile_length"]),
-                        compress="lzma" if args.compression == 10 else args.compression,
-                        # 						 description=page[1]['image_description'],
+                        compression="zlib",
+                        # if args.compression == 10
+                        # else args.compression,
+                        # # 						 description=page[1]['image_description'],
                         resolution=(page[1]["XResolution"], page[1]["YResolution"]),
                     )
                 else:
-                    tif.save(
+                    tif.write(
                         pageRGB,
                         # 						 tile=(256,256),
-                        compress="lzma" if args.compression == 10 else args.compression,
-                        # 						 description=page[1]['image_description'],
+                        compression="zlib",
+                        # if args.compression == 10
+                        # else args.compression,
+                        # # 						 description=page[1]['image_description'],
                         resolution=(page[1]["XResolution"], page[1]["YResolution"]),
                     )
 
@@ -190,3 +198,31 @@ if __name__ == "__main__":
     tiff_ancillary(args.outputFile + ".thumb.tif", all_pages[bands])
     tiff_ancillary(args.outputFile + ".slide.tif", all_pages[-2])
     tiff_ancillary(args.outputFile + ".label.tif", all_pages[-1])
+
+# import matplotlib.pyplot as plt
+# import imageio.v2 as imageio
+# from tifffile import imwrite
+# import argparse
+
+
+# def qptiff_to_tiff(input_file, output_file):
+#     image = imageio.imread(input_file)
+#     plt.imshow(image)
+#     plt.show()
+
+#     imwrite(output_file, image, compression=6)  # Adjust compression level as needed
+#     print("done")
+
+
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description="Convert QPTIFF file to TIFF")
+#     parser.add_argument(
+#         "-i", "--input_file", type=str, help="QPTIFF file name", required=True
+#     )
+#     parser.add_argument(
+#         "-o", "--output_file", type=str, help="Output TIFF file name", required=True
+#     )
+
+#     args = parser.parse_args()
+
+#     qptiff_to_tiff(args.input_file, args.output_file)
