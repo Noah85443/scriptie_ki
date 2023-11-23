@@ -6,11 +6,20 @@ if ~exist('sk','var');sk=1;end
 if ~exist('E','var') || isempty(E);E=1;end
 if ~exist('IHC','var') || isempty(IHC);IHC=0;end
 if ~exist('tpout','var');tpout='tif';end
-imlist=dir([pth,'*tif']);
+imlist=dir(pth);
+
 if isempty(imlist);imlist=dir([pth,'*jp2']);end
 if isempty(imlist);imlist=dir([pth,'*jpg']);end
-tp=imlist(1).name(end-2:end);
+
+if any(ismember({imlist.name}, {'.', '..'}))
+    validEntries = ~ismember({imlist.name}, {'.', '..'});
+    imlist = imlist(validEntries);
+end
+
+tp=imlist(1).name(end-3:end);
+
 if ~exist('zc','var') || isempty(zc);zc=ceil(length(imlist)/2);end
+
 % calculate center image and order
 rf=[zc:-sk:2 zc:sk:length(imlist)-1 0];
 mv=[zc-sk:-sk:1 zc+sk:sk:length(imlist)];
@@ -23,13 +32,17 @@ if ~exist('regE','var')
 end
 
 % find max size of images in list
-if ~exist('szz','var')
+% if ~exist('szz','var')
+    fprintf('szz')
     szz=[0 0];
     for kk=1:length(imlist)
         inf=imfinfo([pth,imlist(kk).name]);
+        disp(inf);
         szz=[max([szz(1),inf.Height]) max([szz(2),inf.Width])]; 
     end
-end
+% end
+
+disp(num2str(szz));
 
 % global registration settings
 padall=250; % padding around all images

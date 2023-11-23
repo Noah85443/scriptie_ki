@@ -1,12 +1,15 @@
-pth = '/images';  % Replace with the actual path to your CODA folder
-IHC = 0;  % Set IHC to the appropriate value
-E = 1;  % Set E to the appropriate value
-zc = 10;  % Set zc to the appropriate value
-szz = [height, width];  % Set szz to the size of your images
-sk = 1;  % Set sk to the appropriate value
-tpout = 'tif';  % Set tpout to the appropriate value
-regE.szE = 201;  % Set regE.szE to the appropriate value
-regE.bfE = 100;  % Set regE.bfE to the appropriate value
-regE.diE = 155;  % Set regE.diE to the appropriate value
 
-register_images(pth, IHC, E, zc, szz, sk, tpout, regE);
+pth = 'images';  % Replace with the actual path to your CODA folder
+sk = 0;  % Set sk to the appropriate value
+
+try
+    % Call register_images with only pth and sk
+    register_images(pth, [], [], [], [], sk);
+catch err
+    % Display the error message and stack trace
+    disp('An error occurred:');
+    disp(err.message);
+    disp(['Error occurred on line ', num2str(err.stack(1).line), ' in ' err.stack(1).name]);
+    disp(['Error occurred on line ', num2str(err.stack(2).line), ' in ' err.stack(2).name]);
+    disp(['Error occurred on line ', num2str(err.stack(3).line), ' in ' err.stack(3).name]);
+end

@@ -11,8 +11,9 @@
 # Store current directory to MYSTART
 MYSTART=`pwd`
 
+
 # Define the name of the Matlab script
-matScript=register_images
+matScript=runCODA
 echo ${matScript}
 
 
