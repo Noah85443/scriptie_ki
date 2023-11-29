@@ -1,10 +1,10 @@
 function [im,TA]=get_ims(pth,nm,tp,rdo)
-if ~exist([pth,'TA\'],'dir');mkdir([pth,'TA\']);end
+if ~exist([pth,'TA/'],'dir');mkdir([pth,'TA/']);end
 if ~exist('rdo','var');rdo=0;end
 
 im=imread([pth,nm,tp]);
 if size(im,3)==1;im=cat(3,im,im,im);end
-pthTA=[pth,'TA\'];
+pthTA=[pth,'TA/'];
 if exist([pthTA,nm,'tif'],'file') && ~rdo
     TA=imread([pthTA,nm,'tif']);
 else

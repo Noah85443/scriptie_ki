@@ -1,4 +1,4 @@
-function register_images(pth,IHC,E,zc,szz,sk,tpout,regE)
+function register_images2E(pth,IHC,E,zc,szz,sk,tpout,regE)
 % Rough registration of a series of 2D tumor sections cut along the 
 % z axis.  Images will be warped into near-alignment
 warning ('off','all');

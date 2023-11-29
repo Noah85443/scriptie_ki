@@ -6,7 +6,11 @@ if ~exist('sk','var');sk=1;end
 if ~exist('E','var') || isempty(E);E=1;end
 if ~exist('IHC','var') || isempty(IHC);IHC=0;end
 if ~exist('tpout','var');tpout='tif';end
-imlist=dir(pth);
+
+% fprintf('Image_Toolbox available: %d\n', license('test', 'Image_Toolbox'));
+% fprintf('The value of E: %d\n', E);
+imlist=dir([pth,'*.tif']);
+% fprintf('The size of imlist: %d\n', length(imlist));
 
 if isempty(imlist);imlist=dir([pth,'*jp2']);end
 if isempty(imlist);imlist=dir([pth,'*jpg']);end
@@ -16,7 +20,7 @@ if any(ismember({imlist.name}, {'.', '..'}))
     imlist = imlist(validEntries);
 end
 
-tp=imlist(1).name(end-3:end);
+tp=imlist(1).name(end-2:end);
 
 if ~exist('zc','var') || isempty(zc);zc=ceil(length(imlist)/2);end
 
@@ -25,22 +29,21 @@ rf=[zc:-sk:2 zc:sk:length(imlist)-1 0];
 mv=[zc-sk:-sk:1 zc+sk:sk:length(imlist)];
 
 % elastic registration settings
-if ~exist('regE','var')
+if ~exist('regE','var') || isempty(regE)
     regE.szE=201; % size of registration tiles % 250
     regE.bfE=100; % size of buffer on registration tiles
     regE.diE=155; % distance between tiles     % 150
 end
 
 % find max size of images in list
-% if ~exist('szz','var')
-    fprintf('szz')
+if ~exist('szz','var') || isempty(szz)
     szz=[0 0];
     for kk=1:length(imlist)
-        inf=imfinfo([pth,imlist(kk).name]);
+        inf=imfinfo(imlist(kk).name,'tif');
         disp(inf);
         szz=[max([szz(1),inf.Height]) max([szz(2),inf.Width])]; 
     end
-% end
+end
 
 disp(num2str(szz));
 
@@ -50,11 +53,11 @@ if IHC==1;rsc=4;elseif IHC==10;rsc=2;else;rsc=6;end
 iternum=5; % max iterations of registration calculation
 
 % define outputs
-outpthG=[pth,'registered\'];
-outpthE=[outpthG,'elastic registration\'];
-matpth=[outpthE,'save_warps\'];
+outpthG=[pth,'registered/'];
+outpthE=[outpthG,'elastic registration/'];
+matpth=[outpthE,'save_warps/'];
 mkdir(outpthG);mkdir(matpth);
-if E;mkdir(outpthE);mkdir([matpth,'D\']);mkdir([matpth,'D\Dnew\']);end
+if E;mkdir(outpthE);mkdir([matpth,'D/']);mkdir([matpth,'D/Dnew/']);end
 
 % set up center image
 nm=imlist(zc).name(1:end-3);
@@ -67,7 +70,7 @@ imwrite(imzc,[outpthG,nm,tpout]);
 if E
     imwrite(imzc,[outpthE,nm,tpout]);
     D=zeros([size(imzc(:,:,1)) 2]);
-    save([matpth,'D\',nm,'mat'],'D');
+    save([matpth,'D/',nm,'mat'],'D');
 end
 
 img=imzcg;TA=TAzc;krf=zc;
