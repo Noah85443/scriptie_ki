@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name="initial_run"
 #SBATCH --nodes=1
-#SBATCH --ntasks=96
+#SBATCH --ntasks=64
 #SBATCH --time=0-01:00:00
 #SBATCH --partition=genoa
 #SBATCH --mail-type=END
