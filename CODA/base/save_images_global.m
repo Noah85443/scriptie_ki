@@ -18,7 +18,7 @@ padall=ceil(padall*scale);
 refsize=ceil(szz*scale);
 
 % determine roi and create output folder
-outpth=[pthim,'registeredG\'];
+outpth=[pthim,'registeredG/'];
 if ~isfolder(outpth);mkdir(outpth);end
 
 % register each image and save to outpth

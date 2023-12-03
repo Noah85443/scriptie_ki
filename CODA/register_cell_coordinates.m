@@ -1,14 +1,15 @@
-function register_cell_coordinates_2022(pth0,pthcoords,scale)
+function register_cell_coordinates(pth0,pthcoords,scale)
 % pth0 = path containing images where registration was calculated
 % pthcoords = path to cell coordinates
 % scale = scale between coordinate images and registration images (>1)
 
 % define paths using pth0
-pthimG=[pth0,'registered\'];
-pthimE=[pthimG,'elastic registration\'];
-outpth=[pthimE,'cell_coordinates_registered\'];mkdir(outpth);
-datapth=[pthimE,'save_warps\'];
-pthD=[datapth,'D\'];
+pthimG=[pth0,'registered/'];
+pthimE=[pthimG,'elastic registration/'];
+outpth=[pthimE,'cell_coordinates_registered/'];
+if ~exist(outpth,"file"); mkdir(outpth);end 
+datapth=[pthimE,'save_warps/'];
+pthD=[datapth,'D/'];
 
 % set up padding information and find registered images
 matlist=dir([pthcoords,'*mat']);

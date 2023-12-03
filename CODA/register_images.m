@@ -1,7 +1,7 @@
 function register_images(pth,IHC,E,zc,szz,sk,tpout,regE)
 % Rough registration of a series of 2D tumor sections cut along the 
 % z axis.  Images will be warped into near-alignment
-warning ('off','all');
+% warning ('off','all');
 if ~exist('sk','var');sk=1;end
 if ~exist('E','var') || isempty(E);E=1;end
 if ~exist('IHC','var') || isempty(IHC);IHC=0;end
@@ -9,7 +9,7 @@ if ~exist('tpout','var');tpout='tif';end
 
 % fprintf('Image_Toolbox available: %d\n', license('test', 'Image_Toolbox'));
 % fprintf('The value of E: %d\n', E);
-imlist=dir([pth,'*.tif']);
+imlist=dir([pth,'*.qptif']);
 % fprintf('The size of imlist: %d\n', length(imlist));
 
 if isempty(imlist);imlist=dir([pth,'*jp2']);end
@@ -95,7 +95,7 @@ for kk=1:length(mv)
         imvEold=imzc;rc=0;
     end
     
-    if exist([matpth,'D\',nm,'mat'],'file') && rc==0
+    if exist([matpth,'D/',nm,'mat'],'file') && rc==0
         % load and create immv
         disp('   Registration already calculated');disp('')
         load([matpth,nm,'mat'],'tform','cent','f');
@@ -147,9 +147,9 @@ for kk=1:length(mv)
         if E
             disp('elastic')
             % elastic registration
-            load([matpth,'D\',imlist(krf).name(1:end-3),'mat'],'D');
-            if exist([matpth,'D\',nm,'mat'],'file')
-                load([matpth,'D\',nm,'mat'],'Dmv');
+            load([matpth,'D/',imlist(krf).name(1:end-3),'mat'],'D');
+            if exist([matpth,'D/',nm,'mat'],'file')
+                load([matpth,'D/',nm,'mat'],'Dmv');
             else
                 Dmv=calculate_elastic_registrationC(imrfg,immvGg,TArf,TAmvG,regE.szE,regE.bfE,regE.diE);
             end
@@ -159,7 +159,7 @@ for kk=1:length(mv)
 
             % save elastic registration data
             imwrite(immvE,[outpthE,nm,tpout]);
-            save([matpth,'D\',nm,'mat'],'D','Dmv');
+            save([matpth,'D/',nm,'mat'],'D','Dmv');
             
             
 %             imvEold=imread([outpthE,imlist(krf).name(1:end-3),tpout]);
@@ -187,7 +187,7 @@ end
     % show images
 %     imrfgE=imwarp(imrfg,D-Dmv,'nearest','FillValues',0);
 %     figure(17);
-%         subplot(1,3,1),imshowpair(imrfg,immvg)
+        % subplot(1,3,1),imshowpair(imrfg,immvg)
 %         subplot(1,3,2),imshowpair(imrfg,immvGg)
 %         subplot(1,3,3),imshowpair(imrfgE,imcomplement(immvE))
 %         ha=get(gcf,'children');linkaxes(ha);

@@ -1,5 +1,5 @@
 function save_inverted_Ds(pth)
-outpth=[pth,'Dnew\'];
+outpth=[pth,'Dnew/'];
 mkdir(outpth);
 imlist=dir([pth,'*mat']);
 
