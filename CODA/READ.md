@@ -27,7 +27,7 @@ register_images:
     - fill_vals
 
 ### function register_images(pth,IHC,E,zc,szz,sk,tpout,regE)
-TODO: explanation.
+Takes the middle image of the stack. Based on this images in rotates the rest of the stack globally and locally to fit best on the middle images creating a stack of tuned images. Creates registered folder with globaly warped images. Within this a folder elastic registration with saves the localy warped images. Within this a folder save_waprs which contains the transformation information globally. Within this a folder D which contains the transformation information locally. Within this a folder Dnew which contains recalculated tranformation (optional and by default empty). Follow the structure of the functions in order to get idea of how the function works.
 
 Input:
 - pth == path to all images (default = tif files)
@@ -178,7 +178,7 @@ Output:
 - msk == mask over the image
 
 ### function imG=register_global_im(im,tform,cent,f,fillval)
-Excecutes the needed tranformation TODO:
+Excecutes the needed tranformation.
 
 Input:
 
