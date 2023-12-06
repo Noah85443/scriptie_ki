@@ -1,5 +1,7 @@
-from PIL import Image
 import os
+import pyvips
+from tqdm.notebook import tqdm_notebook
+import time
 
 
 def annotate_image(inpth, outpth, intyp, outtyp, scale):
@@ -14,22 +16,14 @@ def annotate_image(inpth, outpth, intyp, outtyp, scale):
             input_path = os.path.join(inpth, filename)
             output_path = os.path.join(outpth, filename.replace(intyp, outtyp))
 
+            print(f"{input_path} converted to {output_path}")
+
             try:
-                # Open the Qtiff file
-                with Image.open(input_path) as img:
-                    # Calculate the new size based on the scale factor
-                    new_size = (int(img.width * scale), int(img.height * scale))
-
-                    # Resize the image
-                    resized_img = img.resize(new_size, Image.ANTIALIAS)
-
-                    # Save the downsized image in TIFF format
-                    resized_img.save(output_path, format="TIF")
-
-                print(f"Downsampling successful: {input_path} -> {output_path}")
+                thumb = pyvips.Image.thumbnail(input_path, 2048)
+                thumb.write_to_file(output_path)
 
             except Exception as e:
                 print(f"Error: {e}")
 
 
-annotate_image("qptiff", "tif_scale_0.125", "qptiff", "tif", 0.125)
+annotate_image("qptiff", "tif_scale_0.125", "qptiff", "tif", 8)
