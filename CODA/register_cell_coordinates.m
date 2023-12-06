@@ -7,7 +7,7 @@ function register_cell_coordinates(pth0,pthcoords,scale)
 pthimG=[pth0,'registered/'];
 pthimE=[pthimG,'elastic registration/'];
 outpth=[pthimE,'cell_coordinates_registered/'];
-if ~exist(outpth,"file"); mkdir(outpth);end 
+if ~exist(outpth,"dir"); mkdir(outpth);end 
 datapth=[pthimE,'save_warps/'];
 pthD=[datapth,'D/'];
 
@@ -21,6 +21,7 @@ pad2=1;
 
 % register coordinates for each image
 for kk=1:length(matlist)
+    if exist([outpth,matlist(kk).name], 'file');continue;end
     if ~exist([pthD,matlist(kk).name],'file');continue;end
     load([pthcoords,matlist(kk).name],'xy');
     if isempty(xy) || ~isfile([pth0,matlist(kk).name(1:end-4),'.tif']);continue;end
