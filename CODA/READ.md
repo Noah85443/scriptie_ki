@@ -1,5 +1,29 @@
 # This file explains all functions used in CODA
 
+## Cell count
+
+### Global setup of function
+
+HE_cell_count:
+- pkfndW
+
+### function HE_cell_count(pth):
+Creates a cell_coords directory which stores the coordinates of the cells on each image. The cells are found by bandpass and then peaking finding algorithm.
+
+Input:
+- pth == path to the images
+
+### function pkfndW(img,min,s):
+Peak finding algorithm (no acces to it)
+
+Input:
+- img == image
+- min == minimum brightness of the image
+- s == size of the image
+
+Output:
+- xy == the xy coordinates of the cells 
+
 ## Register images
 
 ### Global setup of functions
