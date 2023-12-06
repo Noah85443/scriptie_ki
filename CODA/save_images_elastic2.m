@@ -1,11 +1,11 @@
 function save_images_elastic2(pthim,pthdata,scale,padnum,ext)
-if ~exist('padnum','var');pd=1;else;pd=0;end
+if ~exist('padnum','var');disp('no padnum');pd=1;else;pd=0;end
 if ~exist('ext','var');ext=[];end
 imlist=dir([pthim,'*tif']);fl='tif';
 if isempty(imlist);imlist=dir([pthim,'*jp2']);fl='jp2';end
 if isempty(imlist);imlist=dir([pthim,'*jpg']);fl='jpg';end
 
-matlist=dir([pthdata,'D\','*mat']);
+matlist=dir([pthdata,'D','*mat']);
 try 
     datafileE=[pthdata,matlist(1).name];
     load(datafileE,'szz','padall');
@@ -17,7 +17,7 @@ padall=ceil(padall*scale);
 refsize=ceil(szz*scale);
 
 % determine roi and create output folder
-outpth=[pthim,'registeredE',ext,'\'];
+outpth=[pthim,'registeredE',ext,'/'];
 if ~isfolder(outpth);mkdir(outpth);end
 
 % register each image and save to outpth
@@ -28,7 +28,7 @@ for kz=1:length(matlist)
     %if contains(imnm,'CD');continue;end
     if ~exist([pthim,imnm],'file');continue;end
     datafileE=[pthdata,imnm(1:end-3),'mat'];
-    datafileD=[[pthdata,'D\'],imnm(1:end-3),'mat'];
+    datafileD=[[pthdata,'D/'],imnm(1:end-3),'mat'];
     if ~exist(datafileD,'file');continue;end
     f=0;
     
@@ -59,7 +59,7 @@ for kz=1:length(matlist)
     end
     
     if kz==1
-       pth1=[pthdata,'..\'];
+       pth1=[pthdata,'../'];
        try 
            im=imread([pth1,matlist(kz).name(1:end-3),'jpg']);
        catch

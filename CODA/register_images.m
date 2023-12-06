@@ -2,6 +2,7 @@ function register_images(pth,IHC,E,zc,szz,sk,tpout,regE)
 % Rough registration of a series of 2D tumor sections cut along the 
 % z axis.  Images will be warped into near-alignment
 % warning ('off','all');
+
 if ~exist('sk','var');sk=1;end
 if ~exist('E','var') || isempty(E);E=1;end
 if ~exist('IHC','var') || isempty(IHC);IHC=0;end
@@ -9,7 +10,7 @@ if ~exist('tpout','var');tpout='tif';end
 
 % fprintf('Image_Toolbox available: %d\n', license('test', 'Image_Toolbox'));
 % fprintf('The value of E: %d\n', E);
-imlist=dir([pth,'*.qptif']);
+imlist=dir([pth,'*.tif']);
 % fprintf('The size of imlist: %d\n', length(imlist));
 
 if isempty(imlist);imlist=dir([pth,'*jp2']);end
@@ -39,7 +40,7 @@ end
 if ~exist('szz','var') || isempty(szz)
     szz=[0 0];
     for kk=1:length(imlist)
-        inf=imfinfo(imlist(kk).name,'tif');
+        inf=imfinfo([pth,imlist(kk).name],'tif');
         disp(inf);
         szz=[max([szz(1),inf.Height]) max([szz(2),inf.Width])]; 
     end
@@ -56,8 +57,8 @@ iternum=5; % max iterations of registration calculation
 outpthG=[pth,'registered/'];
 outpthE=[outpthG,'elastic registration/'];
 matpth=[outpthE,'save_warps/'];
-mkdir(outpthG);mkdir(matpth);
-if E;mkdir(outpthE);mkdir([matpth,'D/']);mkdir([matpth,'D/Dnew/']);end
+if ~exist(outpthG,'dir');mkdir(outpthG); end
+if E && ~exist(outpthE,'dir');mkdir(outpthE);mkdir(matpth);mkdir([matpth,'D/']);mkdir([matpth,'D/Dnew/']);end
 
 % set up center image
 nm=imlist(zc).name(1:end-3);
@@ -103,8 +104,8 @@ for kk=1:length(mv)
         immvGg=register_global_im(immvg,tform,cent,f,mode(immvg(:)));
         TAmvG=register_global_im(TAmv,tform,cent,f,0);
     else
-        %[immv0,TAmv]=get_ims(pth,nm,tp,1);
-        %[immv,immvg,TAmv,fillval]=preprocessing(immv0,TAmv,szz,padall,IHC);
+        % [immv0,TAmv]=get_ims(pth,nm,tp,1);
+        % [immv,immvg,TAmv,fillval]=preprocessing(immv0,TAmv,szz,padall,IHC);
         rc=1;
         RB=0.4;RC=0.4;immvGgB=immvg;immvGgC=immvg;
         % try registration pairs 1
@@ -113,7 +114,7 @@ for kk=1:length(mv)
         if R<0.92;[immvGgB,tformB,centB,fB,RB]=calculate_global_reg(imrfgB,immvg,rsc,iternum,IHC);disp('RB');end % R<0.93
         % try with registration pairs 3
         if R<0.92 && RB<0.92;[immvGgC,tformC,centC,fC,RC]=calculate_global_reg(imrfgC,immvg,rsc,iternum,IHC);disp('RC');end %R<0.93
-        %figure(17);imshowpair(imrfgA,immvGg),title(R)
+        % figure(17);imshowpair(imrfgA,immvGg),title(R)
         figure(17);
             subplot(1,3,1),imshowpair(imrfgA,immvGg),title(R)
             subplot(1,3,2),imshowpair(imrfgB,immvGgB),title(RB)

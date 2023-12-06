@@ -1,23 +1,24 @@
 function save_cell_coordinates_registered(pthim,pthcoords,scale)
 
 % location of images and registration data
-pthimG=[pth1x,'registered\'];
-pthimE=[pth1x,'registered\elastic registration\'];
-pthdata=[pth1x,'registered\elastic registration\save_warps\'];
-matlist=dir([pthimE,'*jpg']);
+% pthimG=[pth1x,'registered\'];
+pthimE=[pthim,'registered/elastic registration/'];
+pthdata=[pthimE,'save_warps/'];
+% matlist=dir([pthimE,'*jpg']);
 
 padnum=0;
 imlist=dir([pthim,'*tif']);
-matlist=dir([pthdata,'D\','*mat']);
+matlist=dir([pthdata,'D/','*mat']);
 datafileE=[pthdata,matlist(1).name];
 load(datafileE,'szz','padall');
 padall=ceil(padall*scale);
 refsize=ceil(szz*scale);
 % pthim='G:\Alicia Braxton\TC_90 PDAC\1x\';
 % determine roi and create output folder
-outpth=[pthimE,'cell_coord_',nn,'_imagesE\'];
-outpth2=[outpth,'mat_files\'];
-mkdir(outpth);mkdir(outpth2);
+outpth=[pthimE,'cell_coord_imagesE/'];
+outpth2=[outpth,'mat_files/'];
+if ~exist(outpth,'dir');mkdir(outpth);end
+if ~exist(outpth2,'dir');mkdir(outpth2);end
 
 volcell=[];
 count=1;
@@ -35,7 +36,7 @@ for kz=1:length(matlist)
     
     % set up variables
     datafileE=[pthdata,matlist(kz).name];
-    datafileD=[[pthdata,'D\'],matlist(kz).name];
+    datafileD=[[pthdata,'D/'],matlist(kz).name];
     f=0;
     
     % create image
