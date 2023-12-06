@@ -47,6 +47,7 @@ if ~exist('szz','var') || isempty(szz)
 end
 
 disp(num2str(szz));
+RRsum=0;
 
 % global registration settings
 padall=250; % padding around all images
@@ -129,6 +130,7 @@ for kk=1:length(mv)
         %disp([R RB RC]);disp('')
         RR=[R RB RC];
         [~,ii]=max(RR);disp(RR)
+        RRsum = RRsum + RR(ii);
         if ii==1
             imrfg=imrfgA;TArf=TArfA;krf=krfA;
         elseif ii==2
@@ -181,6 +183,7 @@ for kk=1:length(mv)
     toc(t1);
 end
 warning('on','all');
+disp(['Average cross correlation: ', num2str(RRsum/length(imlist))])
 
 end
 
