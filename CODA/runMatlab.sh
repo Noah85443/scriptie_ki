@@ -3,7 +3,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=64
 #SBATCH --time=0-01:00:00
-#SBATCH --partition=genoa
+#SBATCH --partition=gpu
+#SBATCH --gpus-per-node=4 
+#SBATCH --gres=gpu:1 
 #SBATCH --mail-type=END
 #SBATCH --mail-user=noah.hoogenboom@xs4all.nl
 #SBATCH --output=testMatlab.out
