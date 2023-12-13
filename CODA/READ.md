@@ -293,3 +293,39 @@ Output:
 
 ### function [xgg,ygg,dxgg,dygg,denom,sxgg,sygg]=fill_vals(xgg,ygg,cc,xystd)
 Fills in non-continuous values in the displacement map (x and y) with the mean of their neighbors. Parameters not of importance.
+
+## Cell transformation
+
+### Global setup of function
+
+register_cell_coordinates:
+- invert_D
+- random_augmentation
+
+### function register_cell_coordinates(pth0,pthcoords,scale):
+Uses the registration and elastic registration to convert the coordinates of the HE_cell_count function to the warped images. This needs to be called after HE_cell_count and register_images. It creates a folder in the path: pth0/registered/elastic registration/cell_coordinates_registered.
+
+Input:
+- pth0 == path to the registered images
+- pthcoords == path to the coordinates of HE_cell_count
+- scale == scale between coordinate images and registration images (>1)
+
+### function Dnew=invert_D(D,skk2):
+Creates inverse tranformation matrix. Uses scattered interpolation (which uses the var skk2) to estimate the original coordinates from the transformed coordinates, applies scaling, and generates the inverted displacement field
+
+Input:
+- D == transformation matrix
+- skk2 == interpolation grid spacing (default 3)
+
+Output:
+- Dnew == inverted displacement field
+
+### [imh,imlabel]=random_augmentation(imh0,imlabel0,rot,sc,hue,bl,rsz):
+Creates inverse tranformation matrix. Uses scattered interpolation (which uses the var skk2) to estimate the original coordinates from the transformed coordinates, applies scaling, and generates the inverted displacement field
+
+Input:
+- D == transformation matrix
+- skk2 == interpolation grid spacing (default 3)
+
+Output:
+- Dnew == inverted displacement field
