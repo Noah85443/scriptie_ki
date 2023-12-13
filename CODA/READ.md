@@ -292,4 +292,4 @@ Output:
 
 
 ### function [xgg,ygg,dxgg,dygg,denom,sxgg,sygg]=fill_vals(xgg,ygg,cc,xystd)
-Fills in non-continuous values in the displacement map (x and y) with the mean of their neighbors.
+Fills in non-continuous values in the displacement map (x and y) with the mean of their neighbors. Parameters not of importance.
