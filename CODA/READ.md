@@ -23,7 +23,7 @@ Input:
 
 Output:
 - xy == the xy coordinates of the cells 
-
+---
 ## Register images
 
 ### Global setup of functions
