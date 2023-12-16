@@ -1,29 +1,5 @@
 # This file explains all functions used in CODA
 
-## Cell count
-
-### Global setup of function
-
-HE_cell_count:
-- pkfndW
-
-### function HE_cell_count(pth):
-Creates a cell_coords directory which stores the coordinates of the cells on each image. The cells are found by bandpass and then peaking finding algorithm.
-
-Input:
-- pth == path to the images
-
-### function pkfndW(img,min,s):
-Peak finding algorithm (no acces to it)
-
-Input:
-- img == image
-- min == minimum brightness of the image
-- s == size of the image
-
-Output:
-- xy == the xy coordinates of the cells 
----
 ## Register images
 
 ### Global setup of functions
@@ -293,7 +269,68 @@ Output:
 
 ### function [xgg,ygg,dxgg,dygg,denom,sxgg,sygg]=fill_vals(xgg,ygg,cc,xystd)
 Fills in non-continuous values in the displacement map (x and y) with the mean of their neighbors. Parameters not of importance.
+---
+## Deeplearning
 
+### Global setup of function
+
+make_training_deeplab:
+- load_xml_file
+  - xml2struct2
+    - parseChildNodes
+      - getNodeData
+        - parseAttributes 
+  - load_annotations
+- calculate_tissue_space_082
+- fill_annotations_file
+- annotation_bounding_boxes
+- combine_tiles_big
+  - edit_annotation_tiles
+    - random_augmentation
+- train_deeplab
+- deeplab_classification
+
+### function HE_cell_count(pth):
+Creates a cell_coords directory which stores the coordinates of the cells on each image. The cells are found by bandpass and then peaking finding algorithm.
+
+Input:
+- pth == path to the images
+
+### function pkfndW(img,min,s):
+Peak finding algorithm (no acces to it)
+
+Input:
+- img == image
+- min == minimum brightness of the image
+- s == size of the image
+
+Output:
+- xy == the xy coordinates of the cells 
+---
+## Cell count
+
+### Global setup of function
+
+HE_cell_count:
+- pkfndW
+
+### function HE_cell_count(pth):
+Creates a cell_coords directory which stores the coordinates of the cells on each image. The cells are found by bandpass and then peaking finding algorithm.
+
+Input:
+- pth == path to the images
+
+### function pkfndW(img,min,s):
+Peak finding algorithm (no acces to it)
+
+Input:
+- img == image
+- min == minimum brightness of the image
+- s == size of the image
+
+Output:
+- xy == the xy coordinates of the cells 
+---
 ## Cell transformation
 
 ### Global setup of function
