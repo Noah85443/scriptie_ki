@@ -1,39 +1,8 @@
-function plot_3D_tiss(pthim,pthcoords,szz,map,sx,sz,FA,crop,I,shiftxyz)
+function plot_3D_tiss(volbody,map,sx,sz,FA,crop,I,shiftxyz)
 % volbody = 3D binary matrix of object
 % map = rgb color of object (for example, [1 0 0] = red, [0 1 0]=green, [0 0 1]=blue)
 % sx = xy resolution (um/pixel)
 % sz = z resolution (um/pixel)
-
-imlist=dir([pthim, '*tif']);
-matlist=dir([pthcoords,'*mat']);
-
-% find max size of images in list
-if ~exist('szz','var') || isempty(szz)
-    szz=[0 0];
-    for kk=1:length(imlist)
-        inf=imfinfo(imlist(kk).name,'tif');
-        szz=[max([szz(1),inf.Width]) max([szz(2),inf.Height])]; 
-    end
-end
-
-% create volbody
-volbody=zeros(szz(1), szz(2), length(matlist));
-
-disp(szz)
-% register coordinates for each image
-for kk=1:length(matlist)-1
-    disp(['Layer: ', num2str(kk), ' of ', num2str(length(matlist)-1)])
-    disp(['Img: ', matlist(kk).name])
-    layer=zeros(szz(1), szz(2));
-    % disp([pthcoords,matlist(kk).name])
-    load([pthcoords,matlist(kk).name],'xy')
-    indices = sub2ind([szz(1), szz(2)], xy(:, 1), xy(:, 2));
-    layer(indices) = 1;
-    volbody(:,:,kk)=layer;
-end
-
-% disp(['Dim of volbody: ', num2str(size(volbody))]);
-% disp(['Points in volbody: ', num2str(sum(volbody, 'all'))]);
 
 if ~exist('sx','var');sx=1;end
 if ~exist('sz','var');sz=1;end
@@ -110,7 +79,7 @@ end
 % ylim([0 7380]);
 % zlim([0 28]);
 plot_settings(1);
-saveas(gcf, 'your_output_filename.png');
+saveas(gcf, 'output_images/3D_image.fig');
 
 
 % if sx==1 && sz==1

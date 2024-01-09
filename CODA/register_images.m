@@ -41,13 +41,12 @@ if ~exist('szz','var') || isempty(szz)
     szz=[0 0];
     for kk=1:length(imlist)
         inf=imfinfo([pth,imlist(kk).name],'tif');
-        disp(inf);
+        % disp(inf);
         szz=[max([szz(1),inf.Height]) max([szz(2),inf.Width])]; 
     end
 end
 
 disp(num2str(szz));
-RRsum=0;
 
 % global registration settings
 padall=250; % padding around all images
@@ -116,21 +115,21 @@ for kk=1:length(mv)
         % try with registration pairs 3
         if R<0.92 && RB<0.92;[immvGgC,tformC,centC,fC,RC]=calculate_global_reg(imrfgC,immvg,rsc,iternum,IHC);disp('RC');end %R<0.93
         % figure(17);imshowpair(imrfgA,immvGg),title(R)
-        figure(17);
-            subplot(1,3,1),imshowpair(imrfgA,immvGg),title(R)
-            subplot(1,3,2),imshowpair(imrfgB,immvGgB),title(RB)
-            subplot(1,3,3),imshowpair(imrfgC,immvGgC),title(RC)
-            ha=get(gcf,'children');linkaxes(ha);
+        % figure(17);
+        %     subplot(1,3,1),imshowpair(imrfgA,immvGg),title(R)
+        %     subplot(1,3,2),imshowpair(imrfgB,immvGgB),title(RB)
+        %     subplot(1,3,3),imshowpair(imrfgC,immvGgC),title(RC)
+        %     ha=get(gcf,'children');linkaxes(ha);
         
         if contains(nm,'030_0620')
              disp('zcesacesag')
         end
 
         % use best of three global registrations
-        %disp([R RB RC]);disp('')
+        % %disp([R RB RC]);disp('')
         RR=[R RB RC];
-        [~,ii]=max(RR);disp(RR)
-        RRsum = RRsum + RR(ii);
+        [~,ii]=max(RR);disp(RR);
+        
         if ii==1
             imrfg=imrfgA;TArf=TArfA;krf=krfA;
         elseif ii==2
@@ -145,6 +144,7 @@ for kk=1:length(mv)
         save([matpth,nm,'mat'],'tform','f','cent','szz','padall');
         immvG=register_global_im(immv,tform,cent,f,fillval);
         TAmvG=register_global_im(TAmv,tform,cent,f,0);
+        disp([outpthG,nm,tpout])
         imwrite(immvG,[outpthG,nm,tpout]);
         
         if E
@@ -183,7 +183,6 @@ for kk=1:length(mv)
     toc(t1);
 end
 warning('on','all');
-disp(['Average cross correlation: ', num2str(RRsum/length(imlist))])
 
 end
 

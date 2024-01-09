@@ -1,28 +1,29 @@
-path(path,'base');
+function make_training_deeplab(pth, pthim, umpix, nm, classNames)
+% pth == path to training set
+% pthim == path to tif images to classify
 
-warning ('off','all');
-pth='\'; % path to annotations
-umpix=1; % um/pixel of images used % 1=10x, 2=5x, 4=16x
-pthim='\'; % path to tif images to classify
-nm='06_17_2022'; % today's date
-% classes
+if isempty(umpix)||~exist('umpix','var');umpix=1;end % um/pixel of images used % 1=10x, 2=5x, 4=16x
+if isempty(nm)||~exist('nm', 'var');nm='12_13_2023'; end % today's date
+
+% Classes
 % 1  diseased
 % 2  non-diseased tissue
 % 3  non-tissue
 cmap=[192 123 224;...   % 1  diseased
       224 211 123;...   % non-diseased tissue
       255 255 255];     % 3 whtespace
-classNames = ["diseased" "nondiseased" "whitespace" "black"];
 
-% define actions to take per annotation class
+
+% Define actions to take per annotation class
 WS{1}=[];         % remove whitespace if 0, keep only whitespace if 1, keep both if 2
-WS{2}=;               % add removed whitespace to this class
+WS{2}=[];         % add removed whitespace to this class
 WS{3}=[];         % rename classes accoring to this order 
 WS{4}=[];         % reverse priority of classes
-WS{5}=[];              % delete classes
-numclass=length(unique(WS{3}));
+WS{5}=[];         % delete classes
+
+numclass=length(classNames);
 sxy=700;
-pthDL=[pth,nm,'\'];
+pthDL=[pth,nm,'/'];
 nblack=numclass+1;
 
 %% load and format annotations for each image
@@ -34,7 +35,7 @@ for kk=1:length(imlist)
     % set up names
     imnm=imlist(kk).name(1:end-4);tic;
     disp(['Image ',num2str(kk),' of ',num2str(length(imlist)),': ',imnm])
-    outpth=[pth,'data\',imnm,'\'];
+    outpth=[pth,'data/',imnm,'/'];
     if ~exist(outpth,'dir');mkdir(outpth);end
     matfile=[outpth,'annotations.mat'];
     
@@ -65,12 +66,12 @@ end
 %% combine tiles  
 numann=numann0;
 % make training tiles
-ty='training\';obg=[pthDL,ty,'big_tiles\'];
+ty='training/';obg=[pthDL,ty,'big_tiles/'];
 while length(dir([obg,'*tif']))<18
     numann=combine_tiles_big(numann0,numann,ctlist,nblack,pthDL,ty,sxy,1);
 end
 % make validation tiles
-ty='validation\';obg=[pthDL,ty,'big_tiles\'];
+ty='validation/';obg=[pthDL,ty,'big_tiles/'];
 while length(dir([obg,'*tif']))<4
     numann=combine_tiles_big(numann0,numann,ctlist,nblack,pthDL,ty,sxy,1);
 end
@@ -80,4 +81,5 @@ train_deeplab(pthDL,1:numclass+1,sxy,classNames);
 
 % classify
 deeplab_classification(pthim,pthDL,sxy,nm,cmap,nblack,WS{2},1);
+end
 
