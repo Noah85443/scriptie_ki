@@ -32,3 +32,8 @@ octave-workspace
 
 node_modules
 images
+
+*.tif
+*.tiff
+*.qptif
+*.qptiff
