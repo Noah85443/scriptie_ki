@@ -10,6 +10,7 @@ function [xyout,reduce_annotations]=load_xml_file(outpth,xmlfile,dm,ra)
     
     stt=xml2struct2(xmlfile);
     try annexist=isfield(stt.Annotations.Annotation.Regions,'Region');
+        disp('Region is a field')
         multlayer=0;
     catch
         annexist=~isempty(stt.Annotations.Annotation);

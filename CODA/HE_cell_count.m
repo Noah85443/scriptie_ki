@@ -1,6 +1,6 @@
 function HE_cell_count(pth)
 % path(path,'\\motherserverdw\ashleysync\PanIN Modelling Package\image registration');       % for getting DAB stain from IHC images
-
+disp(["Cell count for ", pth])
 outpth=[pth,'cell_coords/'];
 if ~exist(outpth, 'dir'); mkdir(outpth);end
 

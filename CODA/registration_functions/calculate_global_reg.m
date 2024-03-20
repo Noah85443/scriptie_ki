@@ -25,6 +25,12 @@ if ~exist('bb','var');bb=0.9;end
 %         figure(13),imshowpair(arf,amv2out),title(num2str(round(R2*100)))
     end
     [tform,amvout,~,~,Rout]=reg_ims_com(amv,arf,iternum-iternum0,sz,rf,rs,xy,0);
+
+    additionalRotation = logpolar(amvout, arf);
+    disp(tform.T)
+    disp(additionalRotation)
+    tform = affine2d(tform.T * additionalRotation);
+
     aa=double(arf>0)+double(amvout>0);
     Rout=sum(aa(:)==2)/sum(aa(:)>0);
     % figure(9),imshowpair(amvout,arf)

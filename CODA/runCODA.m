@@ -1,9 +1,14 @@
-addpath("base/")    % Include all the meaningfull functions
+% Include all the meaningfull functions
+addpath("3D_functions/")    
+addpath("detection_functions/")
+addpath("registration_functions/")  
+addpath("segmentation_functions/")  
+addpath("extra/")  
 
 % Vars for register_images (which is same for HE_cell_count)
-pth='tif_down16/';  % pth to images which need to be registered
+pth='patient/';  % pth to images which need to be registered
 IHC=0;              % factor for reduce and padding (see documentation)
-E=1;                % flag whether elastic registration is used
+E=0;                % flag whether elastic registration is used
 zs=[];              % center image of the stack
 szz=[];             % max size of the images
 sk=1;               % skip value for selecting images
@@ -27,17 +32,17 @@ zres=20;                                                    % z resolution (um/p
 if ~exist('output_images/', 'dir'); mkdir('output_images/');end
 
 try
-    % % registering images
+    % registering images
     % register_images(pth,IHC,E,zs,szz,sk,tpout,regE);
     % alignment_metric(pth)
-    % find_pink(pthim)
+    % HE_cell_count([pth, 'registered/'])
 
     % training and segmenting with deeplearning
-    make_training_deeplab(pthtrain, pthtrain, umpix, nm, classNames)
+    % make_training_deeplab(pthtrain, pthtrain, umpix, nm, classNames)
 
     % % Creating 3D plot
-    % body = create_volbody(pth,pthcoords,szz);
-    % plot_3D_tiss(body,rgb,xyres,zres)
+    body = create_volbody(pth,pthcoords,szz);
+    plot_3D_tiss(body,rgb,xyres,zres)
  
     % % Cell peaks as example 
     % HE_cell_count(pth);
@@ -50,7 +55,7 @@ catch err
     disp(err.message);
     disp(['Error occurred on line ', num2str(err.stack(1).line), ' in ' err.stack(1).name]);
     disp(['Error occurred on line ', num2str(err.stack(2).line), ' in ' err.stack(2).name]);
-    disp(['Error occurred on line ', num2str(err.stack(3).line), ' in ' err.stack(3).name]);
-    disp(['Error occurred on line ', num2str(err.stack(4).line), ' in ' err.stack(4).name]);
+    % disp(['Error occurred on line ', num2str(err.stack(3).line), ' in ' err.stack(3).name]);
+    % disp(['Error occurred on line ', num2str(err.stack(4).line), ' in ' err.stack(4).name]);
     % disp(['Error occurred on line ', num2str(err.stack(5).line), ' in ' err.stack(5).name]);
 end

@@ -37,5 +37,6 @@ images
 *.tiff
 *.qptif
 *.qptiff
+*.mat
 
 .DS_Store

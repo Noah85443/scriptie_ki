@@ -1,9 +1,13 @@
-path = 'images_tif_down16/';
+path = 'patient_log/';
 pathC = 'images_tif_down16/cell_coords/';
 pthG = 'images_tif_down16/registered/';
 pthL = 'images_tif_down16/registered/elastic registration/';
 imgname = 'D16_H21-066.1_HE331_0049_Scan1.tif';
 coordname = 'D16_H21-066.1_HE331_0049_Scan1.mat';
+
+imgg='patient_log/TA/H21-066.4_HE332_001_Scan1.qptiff - resolution #1.tif';
+imgg = imread(imgg);
+disp(imgg);
 
 % imgtest='Images4096/registered/test0.tif';
 % imgred=imread(imgtest, 'tif');
@@ -46,11 +50,11 @@ end
 
 % imshowpair(imread([pth, img]), imread([pthG, img]));
 
-figure;
-imshow(255 - img);  % Display the inverted image
-axis equal;
-hold on;
-plot(xy(:,1), xy(:,2), 'ro');
+% figure;
+% imshow(255 - img);  % Display the inverted image
+% axis equal;
+% hold on;
+% plot(xy(:,1), xy(:,2), 'ro');
 
 figure(17);
     subplot(1,3,1),imshow(img),title('original')

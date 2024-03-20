@@ -74,6 +74,7 @@ if ~isempty(xyout)
 
     % format annotations to keep or remove whitespace
     J=format_white(J,Ig,WS,szz);
+    figure(200),imshow(J);
     figure(93),imshowpair(J,I);
     imwrite(uint8(J),[outpth,'view_annotations_raw.tif']);
 else

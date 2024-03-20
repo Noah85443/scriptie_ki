@@ -58,7 +58,7 @@ outpthG=[pth,'registered/'];
 outpthE=[outpthG,'elastic registration/'];
 matpth=[outpthE,'save_warps/'];
 if ~exist(outpthG,'dir');mkdir(outpthG); end
-if E && ~exist(outpthE,'dir');mkdir(outpthE);mkdir(matpth);mkdir([matpth,'D/']);mkdir([matpth,'D/Dnew/']);end
+if ~exist(outpthE,'dir');mkdir(outpthE);mkdir(matpth);mkdir([matpth,'D/']);mkdir([matpth,'D/Dnew/']);end
 
 % set up center image
 nm=imlist(zc).name(1:end-3);
@@ -96,7 +96,7 @@ for kk=1:length(mv)
         imvEold=imzc;rc=0;
     end
     
-    if exist([matpth,'D/',nm,'mat'],'file') && rc==0
+    if exist([outpthE,nm,'tif'],'file')
         % load and create immv
         disp('   Registration already calculated');disp('')
         load([matpth,nm,'mat'],'tform','cent','f');
